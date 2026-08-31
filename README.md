@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SJ Cafe — Phase 1
 
-## Getting Started
+Bilingual (English/Arabic) menu website for SJ Cafe, Al Shahama, Abu Dhabi.
+Phase 1 scope only: a premium, mobile-first menu site with one universal QR
+code. No ordering, payments, or accounts — see `docs/` and
+`OWNER_CONFIRMATIONS.md` for the full context and what's still pending.
 
-First, run the development server:
+## Stack
+
+Next.js (App Router) + TypeScript + Tailwind CSS. No database — the menu
+lives in a plain TypeScript file (`data/menu.ts`) that you edit directly and
+redeploy.
+
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **http://localhost:3000**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing the menu
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [`data/menu.ts`](data/menu.ts):
 
-## Learn More
+- Change a `price` and redeploy — that's the whole workflow for Phase 1.
+- Set `available: false` on an item to grey it out on the live menu with an
+  "Unavailable" label (the "86" toggle, done manually for now).
+- Add/remove items or whole categories by editing the array directly.
+- Business details (name, address, phone, hours) live in
+  [`data/business.ts`](data/business.ts).
 
-To learn more about Next.js, take a look at the following resources:
+This file is intentionally kept in the same shape a future database/admin
+panel would use, so upgrading later won't require redesigning any pages —
+only swapping where the data comes from.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Product photos & logo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+No real photography yet, so every item shows a branded placeholder tile
+that still looks intentional. To add a real photo, drop a file named after
+the item's `slug` into `public/images/products/` (see the README in that
+folder). Same idea for the logo in `public/images/logo/`. No code changes
+needed either way.
 
-## Deploy on Vercel
+## QR code
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+There is exactly **one** QR code for the whole cafe (table, counter,
+entrance, cups, flyers, social — all the same code). It points at `/menu`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run generate:qr
+```
+
+This reads the target domain from `NEXT_PUBLIC_SITE_URL` (see
+`.env.local`) and writes `public/qr/sj-cafe-menu-qr.png` and `.svg`. Update
+`NEXT_PUBLIC_SITE_URL` to the real production domain once it exists, then
+re-run this before printing anything for real.
+
+## Checks
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+## What's not built yet (by design)
+
+Cart, checkout, online payments, kitchen screen, customer accounts, loyalty,
+and QR analytics are all out of scope for Phase 1. See
+`docs/sj-cafe-build-prompt.md` for the longer-term roadmap, and
+`OWNER_CONFIRMATIONS.md` for what needs sign-off before this goes live.

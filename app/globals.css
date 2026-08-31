@@ -2,25 +2,89 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b1b2b;
+
+  --brand-navy: #0a2f52;
+  --brand-navy-deep: #051a2e;
+  --brand-blue: #1361a8;
+  --brand-blue-light: #eaf3fb;
+  --brand-sky: #5aa9e6;
+  --brand-ink: #0b1b2b;
+  --brand-muted: #5b7186;
+  --brand-line: #dbe8f4;
+  --brand-cream: #faf7f1;
+
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-poppins);
+}
+
+/* Arabic mode swaps both fonts to the Arabic typeface, everywhere, automatically. */
+[dir="rtl"] {
+  --font-body: var(--font-noto-kufi-arabic);
+  --font-heading: var(--font-noto-kufi-arabic);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-deep: var(--brand-navy-deep);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-line: var(--brand-line);
+  --color-brand-cream: var(--brand-cream);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Utility for line-clamping item names on small cards without a plugin. */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Fine film-grain texture, layered over dark/gradient surfaces for a less
+   "flat CSS gradient" feel. Applied via a positioned element with an opacity
+   utility on it — see the hero and product-placeholder tiles. */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Subtle staggered entrance for hero content — kept to opacity/transform only
+   so it stays cheap and never causes layout shift. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
