@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { Logo } from "@/components/Logo";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { OpenBadge } from "@/components/OpenBadge";
@@ -12,9 +13,31 @@ import { CartIcon } from "@/components/icons";
 export function SiteHeader() {
   const { language } = useLanguage();
   const { totalQuantity } = useCart();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // The header's rendered height varies by breakpoint (the logo alone goes
+  // 48px -> 56px) and could in principle shift for other reasons (font
+  // loading, a longer translated name). Anything elsewhere on the page that
+  // needs to sit flush under the sticky header (the category nav's own
+  // sticky offset, its scroll-margin-top) reads this variable instead of a
+  // hardcoded pixel guess, so it can never drift out of sync again.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const setHeaderHeightVar = () => {
+      document.documentElement.style.setProperty("--header-h", `${el.getBoundingClientRect().height}px`);
+    };
+    setHeaderHeightVar();
+    const observer = new ResizeObserver(setHeaderHeightVar);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 shadow-[0_1px_0_rgba(10,47,82,0.06)] backdrop-blur">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-40 bg-white/90 shadow-[0_1px_0_rgba(10,47,82,0.06)] backdrop-blur"
+    >
       <div aria-hidden className="h-[3px] bg-gradient-to-r from-brand-navy via-brand-blue to-brand-sky" />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">

@@ -50,7 +50,7 @@ export function MenuBrowser() {
   };
 
   return (
-    <div id="menu" className="relative scroll-mt-[98px]">
+    <div id="menu" className="relative" style={{ scrollMarginTop: "var(--header-h, 98px)" }}>
       {/* Faint, non-repeating monogram watermark — texture for the long white
           menu section without competing with the product photography. */}
       <span
@@ -80,7 +80,10 @@ export function MenuBrowser() {
         </div>
       </div>
 
-      <div className="sticky top-[98px] z-30 border-b border-brand-line/70 bg-white/95 backdrop-blur">
+      <div
+        className="sticky z-30 border-b border-brand-line/70 bg-white/95 backdrop-blur"
+        style={{ top: "var(--header-h, 98px)" }}
+      >
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-2 py-3">
@@ -118,7 +121,8 @@ export function MenuBrowser() {
             ref={(el) => {
               sectionRefs.current[category.slug] = el;
             }}
-            className="scroll-mt-[156px] py-6"
+            className="py-6"
+            style={{ scrollMarginTop: "calc(var(--header-h, 98px) + 58px)" }}
           >
             <div className="mb-4 flex items-center gap-3">
               <h2 className="font-heading text-xl font-bold text-brand-ink sm:text-2xl">
