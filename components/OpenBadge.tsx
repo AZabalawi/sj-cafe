@@ -36,8 +36,18 @@ export function OpenBadge({ tone = "light", size = "md" }: OpenBadgeProps) {
 
   return (
     <span className={`inline-flex items-center rounded-full font-semibold tracking-wide ${sizeClasses} ${toneClasses}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${open ? "bg-emerald-400 shadow-[0_0_0_3px_rgba(52,211,153,0.25)]" : "bg-current opacity-60"}`} />
-      {open ? t("openNow") : t("closedNow")}
+      <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${open ? "bg-emerald-400 shadow-[0_0_0_3px_rgba(52,211,153,0.25)]" : "bg-current opacity-60"}`} />
+      {size === "sm" ? (
+        <>
+          {/* Drops "Now" below sm — the header is tight on space there (see SiteHeader). */}
+          <span className="hidden sm:inline">{open ? t("openNow") : t("closedNow")}</span>
+          <span className="sm:hidden">{open ? t("openShort") : t("closedShort")}</span>
+        </>
+      ) : open ? (
+        t("openNow")
+      ) : (
+        t("closedNow")
+      )}
     </span>
   );
 }

@@ -68,8 +68,12 @@ export default function CheckoutPage() {
     router.push(`/order/${order.reference}`);
   };
 
-  const inputClass =
-    "w-full rounded-2xl border border-brand-line bg-white px-4 py-3.5 text-sm text-brand-ink outline-none transition-shadow focus:border-brand-blue/40 focus:ring-4 focus:ring-brand-blue/10";
+  const fieldClass = (hasError?: boolean) =>
+    `w-full rounded-2xl border bg-white px-4 py-3.5 text-sm text-brand-ink outline-none transition-shadow focus:ring-4 ${
+      hasError
+        ? "border-red-300 focus:border-red-400 focus:ring-red-100"
+        : "border-brand-line focus:border-brand-blue/40 focus:ring-brand-blue/10"
+    }`;
   const errorClass = "mt-1 text-xs font-medium text-red-600";
 
   return (
@@ -87,7 +91,8 @@ export default function CheckoutPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t("namePlaceholder")}
-                className={inputClass}
+                aria-invalid={!!errors.name}
+                className={fieldClass(!!errors.name)}
               />
               {errors.name && <span className={errorClass}>{errors.name}</span>}
             </label>
@@ -100,7 +105,8 @@ export default function CheckoutPage() {
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
                 placeholder={t("mobilePlaceholder")}
-                className={`${inputClass} text-start`}
+                aria-invalid={!!errors.mobile}
+                className={`${fieldClass(!!errors.mobile)} text-start`}
               />
               {errors.mobile && <span className={errorClass}>{errors.mobile}</span>}
             </label>
@@ -134,7 +140,8 @@ export default function CheckoutPage() {
                     value={carModel}
                     onChange={(e) => setCarModel(e.target.value)}
                     placeholder={t("carModelPlaceholder")}
-                    className={inputClass}
+                    aria-invalid={!!errors.carModel}
+                    className={fieldClass(!!errors.carModel)}
                   />
                   {errors.carModel && <span className={errorClass}>{errors.carModel}</span>}
                 </label>
@@ -145,7 +152,8 @@ export default function CheckoutPage() {
                     value={carPlate}
                     onChange={(e) => setCarPlate(e.target.value)}
                     placeholder={t("plateNumberPlaceholder")}
-                    className={inputClass}
+                    aria-invalid={!!errors.carPlate}
+                    className={fieldClass(!!errors.carPlate)}
                   />
                   {errors.carPlate && <span className={errorClass}>{errors.carPlate}</span>}
                 </label>
@@ -159,7 +167,7 @@ export default function CheckoutPage() {
                 onChange={(e) => setNote(e.target.value)}
                 rows={2}
                 placeholder={t("notePlaceholder")}
-                className={`${inputClass} resize-none`}
+                className={`${fieldClass()} resize-none`}
               />
             </label>
 

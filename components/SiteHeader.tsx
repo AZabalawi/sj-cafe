@@ -43,14 +43,13 @@ export function SiteHeader() {
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <Logo size="lg" linked={false} className="shrink-0" />
           <span className="flex min-w-0 flex-col gap-0.5">
-            <span className="truncate font-heading text-base font-bold leading-tight tracking-tight text-brand-ink sm:text-lg">
-              {business.name[language]}
-            </span>
-            <span className="flex items-center gap-1.5 text-xs text-brand-muted">
-              <span className="truncate">{business.shortLocation[language]}</span>
-              <span aria-hidden className="h-3 w-px bg-brand-line" />
+            <span className="flex items-center gap-2">
+              <span className="truncate font-heading text-base font-bold leading-tight tracking-tight text-brand-ink sm:text-lg">
+                {business.name[language]}
+              </span>
               <OpenBadge tone="dark" size="sm" />
             </span>
+            <span className="truncate text-xs text-brand-muted">{business.shortLocation[language]}</span>
           </span>
         </Link>
 

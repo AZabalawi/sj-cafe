@@ -8,7 +8,7 @@ type LanguageToggleProps = {
 };
 
 export function LanguageToggle({ tone = "dark" }: LanguageToggleProps) {
-  const { toggleLanguage, t } = useLanguage();
+  const { language, toggleLanguage, t } = useLanguage();
 
   const toneClasses =
     tone === "light"
@@ -19,10 +19,14 @@ export function LanguageToggle({ tone = "dark" }: LanguageToggleProps) {
     <button
       type="button"
       onClick={toggleLanguage}
+      aria-label={t("switchLanguage")}
       className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-all hover:-translate-y-0.5 ${toneClasses}`}
     >
       <GlobeIcon className="h-4 w-4" />
-      {t("switchLanguage")}
+      {/* Full target-language name from sm up; a bare code on narrow phones,
+          where the header is fighting for every pixel (see SiteHeader). */}
+      <span className="hidden sm:inline">{t("switchLanguage")}</span>
+      <span className="sm:hidden">{language === "en" ? "AR" : "EN"}</span>
     </button>
   );
 }

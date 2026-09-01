@@ -112,22 +112,35 @@ export function HeroSlideshow() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep/75 via-brand-navy-deep/15 to-transparent" />
 
-              {slide.type === "cover" ? (
-                <p className="absolute bottom-4 start-4 max-w-xs font-heading text-sm font-semibold text-white sm:bottom-5 sm:start-5 sm:text-base">
-                  {business.tagline[language]}
-                </p>
-              ) : (
-                item && (
-                  <div className="absolute bottom-4 start-4 flex flex-col gap-1 sm:bottom-5 sm:start-5">
-                    <span className="w-fit rounded-full bg-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
-                      {language === "ar" ? "من قائمتنا" : "From our menu"}
-                    </span>
-                    <p className="font-heading text-sm font-bold text-white sm:text-lg">
-                      {item.name[language]} · {item.price} {business.currency.label[language]}
-                    </p>
-                  </div>
-                )
-              )}
+              {/* Captions are only rendered for the active slide — with two
+                  full-bleed slides stacked in the exact same spot, crossfading
+                  the caption along with the image left both slides' text
+                  visibly overlapping for the whole transition. Keying on the
+                  slide gives each caption its own quick fade-in on mount
+                  instead, so there's never more than one on screen. */}
+              {isActive &&
+                (slide.type === "cover" ? (
+                  <p
+                    key="cover-caption"
+                    className="animate-fade-up absolute bottom-4 start-4 max-w-xs font-heading text-sm font-semibold text-white sm:bottom-5 sm:start-5 sm:text-base"
+                  >
+                    {business.tagline[language]}
+                  </p>
+                ) : (
+                  item && (
+                    <div
+                      key={`${slide.slug}-caption`}
+                      className="animate-fade-up absolute bottom-4 start-4 flex flex-col gap-1 sm:bottom-5 sm:start-5"
+                    >
+                      <span className="w-fit rounded-full bg-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+                        {language === "ar" ? "من قائمتنا" : "From our menu"}
+                      </span>
+                      <p className="font-heading text-sm font-bold text-white sm:text-lg">
+                        {item.name[language]} · {item.price} {business.currency.label[language]}
+                      </p>
+                    </div>
+                  )
+                ))}
             </div>
           );
         })}
