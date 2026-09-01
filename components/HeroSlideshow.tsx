@@ -77,7 +77,7 @@ export function HeroSlideshow() {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6">
       <div
-        className="relative h-40 w-full overflow-hidden rounded-3xl shadow-sm ring-1 ring-black/[0.04] sm:h-56"
+        className="relative h-80 w-full overflow-hidden rounded-3xl shadow-sm ring-1 ring-black/[0.04] md:h-64 lg:h-56"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
