@@ -289,7 +289,7 @@ Overpromising on your first client is how people end up working for free for six
   this at the first meeting, not the fourth.
 - **You cannot enter his card, bank or Emirates ID details.** He does that himself, on his own
   accounts. Say so — it reads as professional, not limiting.
-- **Claude will generate a lot of this fast, but not all of it correctly.** Budget real time
+- **AI tools can generate a lot of this fast, but not all of it correctly.** Budget real time
   for reading, testing and fixing. A generated app that looks finished is not a shipped app.
   Don't quote a timeline based on how fast the first version appears.
 - **UAE data protection law** (Federal Decree-Law 45/2021) applies to storing customer names

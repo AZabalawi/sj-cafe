@@ -1,15 +1,17 @@
-# SJ Cafe — Phase 1
+# SJ Cafe
 
-Bilingual (English/Arabic) menu website for SJ Cafe, Al Shahama, Abu Dhabi.
-Phase 1 scope only: a premium, mobile-first menu site with one universal QR
-code. No ordering, payments, or accounts — see `docs/` and
-`OWNER_CONFIRMATIONS.md` for the full context and what's still pending.
+Digital storefront and ordering experience for SJ Cafe, Al Shahama, Abu Dhabi.
+
+A bilingual (English/Arabic, full RTL) mobile-first storefront: browse the
+menu, add items to a cart, and check out for pickup or car pickup with cash
+payment at the restaurant. A single universal QR code opens the storefront
+directly.
 
 ## Stack
 
-Next.js (App Router) + TypeScript + Tailwind CSS. No database — the menu
-lives in a plain TypeScript file (`data/menu.ts`) that you edit directly and
-redeploy.
+Next.js (App Router) + TypeScript + Tailwind CSS. No database — menu and
+business data live in plain TypeScript files that are edited directly and
+redeployed.
 
 ## Run it locally
 
@@ -24,10 +26,11 @@ Open **http://localhost:3000**.
 
 Open [`data/menu.ts`](data/menu.ts):
 
-- Change a `price` and redeploy — that's the whole workflow for Phase 1.
+- Change a `price` and redeploy — that's the whole workflow.
 - Set `available: false` on an item to grey it out on the live menu with an
-  "Unavailable" label (the "86" toggle, done manually for now).
-- Add/remove items or whole categories by editing the array directly.
+  "Unavailable" label.
+- Add or remove items and categories by editing the array directly.
+- Mark an item `featured: true` to include it in the "Popular at SJ" section.
 - Business details (name, address, phone, hours) live in
   [`data/business.ts`](data/business.ts).
 
@@ -37,16 +40,23 @@ only swapping where the data comes from.
 
 ## Product photos & logo
 
-No real photography yet, so every item shows a branded placeholder tile
-that still looks intentional. To add a real photo, drop a file named after
-the item's `slug` into `public/images/products/` (see the README in that
-folder). Same idea for the logo in `public/images/logo/`. No code changes
-needed either way.
+Real product photos live in `public/images/products/`, named after each
+item's `slug` from `data/menu.ts`. The real logo lives in
+`public/images/logo/`. To replace either, drop a file at the same path — see
+the README in each folder for details. No code changes needed.
+
+## Cart & checkout
+
+The cart persists in the browser (`localStorage`) and checkout collects
+name, UAE mobile number, and pickup details (car make/model and plate for
+car pickup). Payment is cash at the restaurant only — no online payments are
+processed by this site.
 
 ## QR code
 
 There is exactly **one** QR code for the whole cafe (table, counter,
-entrance, cups, flyers, social — all the same code). It points at `/menu`.
+entrance, cups, flyers, social — all the same code). It points at the
+storefront.
 
 ```bash
 npm run generate:qr
@@ -65,9 +75,12 @@ npm run typecheck
 npm run build
 ```
 
-## What's not built yet (by design)
+## Deployment
 
-Cart, checkout, online payments, kitchen screen, customer accounts, loyalty,
-and QR analytics are all out of scope for Phase 1. See
-`docs/sj-cafe-build-prompt.md` for the longer-term roadmap, and
-`OWNER_CONFIRMATIONS.md` for what needs sign-off before this goes live.
+Configured for Netlify via `netlify.toml` and `@netlify/plugin-nextjs`.
+
+## Further reading
+
+See `OWNER_CONFIRMATIONS.md` for details that still need sign-off before
+this goes live (pricing, business details, product photography), and
+`docs/` for the original project research and planning notes.

@@ -1,8 +1,8 @@
 # SJ Cafe — Master Build Prompt
 
-Paste everything below the line into Claude Code (or a fresh Claude chat with file creation).
-Build it in the order given. Do **not** ask Claude to do all three phases in one go — it will
-produce a big blurry mess. Do Phase 1, run it, look at it, then move on.
+Paste everything below the line into your AI coding assistant of choice (one that supports file
+creation). Build it in the order given. Do **not** ask it to do all three phases in one go — it
+will produce a big blurry mess. Do Phase 1, run it, look at it, then move on.
 
 Before you paste: replace every `<<<...>>>` placeholder. The prices in the seed data are
 **invented placeholders** so the demo renders. Get the real price list from the owner and
